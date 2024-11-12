@@ -1,0 +1,10 @@
+# Ignore the virtual environment directory
+venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore pip's vendor packages in venv
+venv/lib/python*/site-packages/pip/_vendor/
