@@ -9,6 +9,9 @@ from typing import List, TypeVar
 from flask import request
 
 
+user = TypeVar('User')
+
+
 class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
