@@ -10,6 +10,9 @@ from flask import request
 
 
 class Auth:
+    """
+    Auth class serves as a base for managing API authentication.
+    """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
