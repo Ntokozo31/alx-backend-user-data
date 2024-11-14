@@ -15,13 +15,17 @@ class Auth:
         """
         Check if authantication is required for the given path
         """
-        if path is None or excluded_paths is None:
+        if path is None:
             return True
 
-        path = path.rstrip('/')
+        if excluded_paths is None:
+            return True
+
+        if path[-1] != '/':
+            path += '/'
 
         for excluded_path in excluded_paths:
-            if excluded_path.rstrip('/') == path:
+            if path == excluded_path:
                 return False
 
         return True
