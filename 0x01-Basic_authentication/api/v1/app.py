@@ -17,7 +17,7 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 
-if os.getenv('AUTH_TYPE') == 'auth':
+if os.getenv('AUTH_TYPE', None) == 'auth':
     auth = Auth()
 
 @app.before_request
@@ -43,6 +43,14 @@ def before_request():
     # Check if current_user is valid
     if auth.current_user(request) is None:
         abort(403)  # Forbidden
+
+
+@app.errorhandler(401)
+def unauthorized_error(error) -> str:
+    """
+    Handle unauthorized error 401
+    """
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
