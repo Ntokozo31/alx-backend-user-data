@@ -15,10 +15,14 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
+"""Initialize auth to None"""
 auth = None
 
-if os.getenv('AUTH_TYPE', None) == 'auth':
+"""Check the environment variable Auth_TYPE to load the appropriet class"""
+AUTH_TYPE = getenv('AUTH_TYPE', None)
+if AUTH_TYPE == 'auth':
     auth = Auth()
+
 
 @app.before_request
 def before_request():
@@ -30,7 +34,10 @@ def before_request():
         return
 
     # Define the paths that don't require authentication
-    excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    excluded_paths = [
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/']
 
     # If the current path doesn't require authentication, we skip
     if not auth.require_auth(request.path, excluded_paths):
