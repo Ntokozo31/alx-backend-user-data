@@ -15,6 +15,7 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
+"""Dertemine authathication type based on environmental variable"""
 auth = None
 
 AUTH_TYPE = getenv('AUTH_TYPE', None)
